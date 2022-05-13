@@ -1,8 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+export function App() {
+  const [counter, setCounter] = React.useState(0)
+
+  const handleChange = () => setCounter(prevState => prevState + 1)
+
   return (
     <div className="App">
       <header className="App-header">
@@ -19,8 +23,46 @@ function App() {
           Learn React
         </a>
       </header>
+      <Counter counter={counter} />
+      <Button  handleChange={handleChange}/>
     </div>
   );
 }
 
-export default App;
+
+export function Counter({ counter }: CounterProps) {
+  return <div>This is my counter <span>{ counter }</span></div>
+}
+export function Button({ handleChange }: ButtonProps) {
+  return (
+    <div style={
+      {
+        margin: '100px',
+      }
+    }>
+      <button style={
+        {
+          backgroundColor: '#3a86ff',
+          fontFamily: 'sans-serif',
+          fontSize: '20px',
+          color: 'white',
+          padding: '10px',
+          borderStyle: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+        }
+      }
+      onClick={handleChange}
+      > Click me!! </button>
+    </div>
+  )
+}
+
+type CounterProps = {
+  counter: number;
+}
+
+
+type ButtonProps = {
+  handleChange: () => void;
+}
